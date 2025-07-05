@@ -1,0 +1,106 @@
+"use client";
+
+import { useClickOutside } from "@/hooks/use-click-outside";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
+
+const DropdownContext = createContext(null);
+
+function useDropdownContext() {
+  const context = useContext(DropdownContext);
+  if (!context) {
+    throw new Error("useDropdownContext must be used within a Dropdown");
+  }
+  return context;
+}
+
+export function Dropdown({ children, isOpen, setIsOpen }) {
+  const triggerRef = useRef(null);
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Escape") {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      triggerRef.current = document.activeElement;
+
+      document.body.style.pointerEvents = "none";
+    } else {
+      document.body.style.removeProperty("pointer-events");
+
+      setTimeout(() => {
+        triggerRef.current?.focus();
+      }, 0);
+    }
+  }, [isOpen]);
+
+  function handleClose() {
+    setIsOpen(false);
+  }
+
+  function handleOpen() {
+    setIsOpen(true);
+  }
+
+  return (
+    <DropdownContext.Provider value={{ isOpen, handleOpen, handleClose }}>
+      <div className="relative" onKeyDown={handleKeyDown}>
+        {children}
+      </div>
+    </DropdownContext.Provider>
+  );
+}
+
+export function DropdownContent({
+  children,
+  align = "center",
+  className = "",
+}) {
+  const { isOpen, handleClose } = useDropdownContext();
+
+  const contentRef = useClickOutside(() => {
+    if (isOpen) handleClose();
+  });
+
+  if (!isOpen) return null;
+
+  let alignmentClasses = "right-0";
+  if (align === "start") alignmentClasses = "left-0";
+  else if (align === "center") alignmentClasses = "left-1/2 -translate-x-1/2";
+
+  return (
+    <div
+      ref={contentRef}
+      role="menu"
+      aria-orientation="vertical"
+      className={`fade-in-0 zoom-in-95 pointer-events-auto absolute z-99 mt-2 min-w-[8rem] origin-top-right rounded-lg animate-in ${alignmentClasses} ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+export function DropdownTrigger({ children, className = "", ...rest }) {
+  const { handleOpen, isOpen } = useDropdownContext();
+
+  return (
+    <button
+      className={className}
+      onClick={handleOpen}
+      aria-expanded={isOpen}
+      aria-haspopup="menu"
+      data-state={isOpen ? "open" : "closed"}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function DropdownClose({ children }) {
+  const { handleClose } = useDropdownContext();
+
+  return <div onClick={handleClose}>{children}</div>;
+}

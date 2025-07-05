@@ -57,13 +57,13 @@ export const menuData = [
         id: 67,
         title: "Sign in",
         newTab: false,
-        path: "/signin",
+        path: "/login",
       },
       {
         id: 68,
         title: "Sign up",
         newTab: false,
-        path: "/signup",
+        path: "/sign-up",
       },
       {
         id: 69,
