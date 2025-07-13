@@ -14,15 +14,25 @@ export default function OrderCard({ order }) {
       <div className="flex justify-between">
         <div>
           <p className="font-medium">Order ID: {order._id}</p>
-          <p>Customer: {order.customerName}</p>
-          <p>Total: ₹{order.totalAmount}</p>
+          <p>
+            Customer: {order.user?.firstName} {order.user?.lastName}
+          </p>
+          <p>Total: ₹{order.total}</p>
         </div>
         <div className="text-right">
           <p>
             Status: <span className="font-semibold">{order.status}</span>
           </p>
+          <p>
+            Placed On:
+            {new Date(order.createdAt).toLocaleString("en-IN", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            })}
+          </p>
+
           <Link
-            href={`/orders/${order._id}`}
+            href={`/merchant/orders/${order._id}`}
             className="text-blue-500 hover:underline"
           >
             View Details
@@ -32,3 +42,5 @@ export default function OrderCard({ order }) {
     </div>
   );
 }
+
+//dirreferntiate between placed on and last updated on. placed on verna shows last updated on wala date

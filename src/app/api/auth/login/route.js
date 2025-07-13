@@ -15,27 +15,11 @@ export async function POST(request) {
     });
 
     if (!res.ok) {
-      throw new Error(data.message || "Login failed");
+      throw new Error(res.message || "Login failed");
     }
 
-    const isValidUser = await res.json();
-
-    if (!isValidUser.token) {
-      return NextResponse.json(
-        { message: "Invalid credentials" },
-        { status: 401 }
-      );
-    }
-    cookies().set({
-      name: "authToken",
-      value: isValidUser.token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
-      maxAge: 60 * 60 * 24 * 7, // 1 week
-      path: "/",
-    });
-
+    // Backend already sets the cookie, so we don't need to set it again
+    // Just return success response
     return NextResponse.json({ message: "Login successful" });
   } catch (error) {
     return NextResponse.json(
@@ -44,3 +28,16 @@ export async function POST(request) {
     );
   }
 }
+
+// if (!isValidUser.token) {
+//   return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
+// }
+// cookies().set({
+//   name: "authToken",
+//   value: isValidUser.token,
+//   httpOnly: true,
+//   secure: process.env.NODE_ENV === "production",
+//   sameSite: "strict",
+//   maxAge: 60 * 60 * 24 * 7, // 1 week
+//   path: "/",
+// });

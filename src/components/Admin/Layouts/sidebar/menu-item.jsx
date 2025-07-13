@@ -10,7 +10,7 @@ export function MenuItem(props) {
     const active =
       "bg-[rgba(87,80,241,0.07)] text-primary hover:bg-[rgba(87,80,241,0.07)] dark:bg-[#FFFFFF1A] dark:text-white";
     const inactive =
-      "hover:bg-gray-100 hover:text-dark hover:dark:bg-[#FFFFFF1A] hover:dark:text-white";
+      "hover:bg-blue hover:text-dark hover:dark:bg-[#FFFFFF1A] hover:dark:text-sky-700";
 
     const linkPadding = "relative block py-2";
     const buttonPadding = "flex w-full items-center gap-3 py-3";

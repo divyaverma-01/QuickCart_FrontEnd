@@ -11,6 +11,7 @@ import { Sidebar } from "@/components/Admin/Layouts/sidebar";
 import { Header } from "@/components/Admin/Layouts/header";
 import NextTopLoader from "nextjs-toploader";
 import { Providers } from "./providers";
+import { AuthProvider } from "../context/AuthContext";
 
 export const metadata = {
   title: {
@@ -25,21 +26,23 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>
-          <NextTopLoader color="#5750F1" showSpinner={false} />
+        <AuthProvider>
+          <Providers>
+            <NextTopLoader color="#5750F1" showSpinner={false} />
 
-          <div className="flex min-h-screen">
-            <Sidebar />
+            <div className="flex min-h-screen">
+              <Sidebar />
 
-            <div className="w-full bg-gray-2 dark:bg-[#020d1a]">
-              <Header />
+              <div className="w-full bg-white">
+                <Header />
 
-              <main className="isolate mx-auto w-full max-w-screen-2xl overflow-hidden p-2 md:p-4 2xl:p-6">
-                {children}
-              </main>
+                <main className="isolate mx-auto w-full max-w-screen-2xl overflow-hidden p-2 md:p-4 2xl:p-6">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-        </Providers>
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

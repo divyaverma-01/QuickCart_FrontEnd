@@ -2,11 +2,14 @@
 
 import { SidebarProvider } from "@/components/Admin/Layouts/sidebar/sidebar-context";
 import { ThemeProvider } from "next-themes";
+import { AuthProvider } from "../context/AuthContext";
 
 export function Providers({ children }) {
   return (
     <ThemeProvider defaultTheme="light" attribute="class">
-      <SidebarProvider>{children}</SidebarProvider>
+      <AuthProvider>
+        <SidebarProvider>{children}</SidebarProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

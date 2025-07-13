@@ -57,3 +57,10 @@ const logoutApi = async () => {
     throw new Error(error.message);
   }
 };
+
+export { loginApi, signupApi, logoutApi };
+
+// Why Not Set Cookies in authApi.js?
+// You cannot set HTTP-only cookies from the client-side JavaScript.
+// Only the server (API routes, SSR, etc.) can set HTTP-only cookies via the Set-Cookie header in the HTTP response.
+// If you set cookies in authApi.js using document.cookie, they will be accessible to JavaScript (not secure) and cannot be httpOnly.
