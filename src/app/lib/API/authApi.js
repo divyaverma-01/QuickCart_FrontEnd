@@ -2,20 +2,24 @@
 //sign up api func
 //log out
 
+// Use your backend API base URL
+const BACKEND_API =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
+
 const loginApi = async (email, password) => {
   try {
-    const res = await fetch("/api/auth/login", {
+    const res = await fetch(`${BACKEND_API}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
+    const data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "Login failed");
     }
-
-    return await res.json();
+    return data; // Should contain token
   } catch (error) {
     throw new Error(error.message);
   }
@@ -23,36 +27,38 @@ const loginApi = async (email, password) => {
 
 const signupApi = async (firstName, lastName, email, password, role) => {
   try {
-    const res = await fetch("http://localhost:3001/api/auth/signup", {
+    const res = await fetch(`${BACKEND_API}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ firstName, lastName, email, password, role }),
     });
+    const data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "Signup failed");
     }
-
-    return await res.json();
+    return data;
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-const logoutApi = async () => {
+// If your backend needs to invalidate tokens, keep this. Otherwise, you can remove it.
+const logoutApi = async (token) => {
   try {
-    const res = await fetch("/api/auth/logout", {
+    const res = await fetch(`${BACKEND_API}/api/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
     });
+    const data = await res.json();
     if (!res.ok) {
       throw new Error(data.message || "Logout failed");
     }
-
-    return await res.json();
+    return data;
   } catch (error) {
     throw new Error(error.message);
   }

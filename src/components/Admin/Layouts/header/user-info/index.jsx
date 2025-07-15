@@ -10,15 +10,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { LogOutIcon, SettingsIcon, UserIcon } from "./icons";
+import { useAuth } from "@/app/context/AuthContext";
 
 export function UserInfo() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user, authLoading } = useAuth();
 
-  const USER = {
-    name: "John Smith",
-    email: "johnson@nextadmin.com",
-    img: "/images/user/user-03.png",
-  };
+  // Fallbacks
+  const fallbackImg = "/images/user/user-03.png";
+  const fallbackName = "User";
+  const fallbackEmail = "user@example.com";
+
+  // If loading, show skeleton or fallback
+  if (authLoading) {
+    return (
+      <div className="animate-pulse flex items-center gap-3">
+        <div className="bg-gray-200 rounded-full w-12 h-12" />
+        <div className="h-4 bg-gray-200 rounded w-24" />
+      </div>
+    );
+  }
+
+  // If no user, show fallback
+  const name =
+    user?.firstName && user?.lastName
+      ? `${user.firstName} ${user.lastName}`
+      : user?.name || fallbackName;
+  const email = user?.email || fallbackEmail;
+  const img = user?.profileImage || fallbackImg;
 
   return (
     <Dropdown isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -27,15 +46,15 @@ export function UserInfo() {
 
         <figure className="flex items-center gap-3">
           <Image
-            src={USER.img}
+            src={img}
             className="size-12"
-            alt={`Avatar of ${USER.name}`}
+            alt={`Avatar of ${name}`}
             role="presentation"
             width={200}
             height={200}
           />
           <figcaption className="flex items-center gap-1 font-medium text-dark dark:text-dark-6 max-[1024px]:sr-only">
-            <span>{USER.name}</span>
+            <span>{name}</span>
 
             <ChevronUpIcon
               aria-hidden
@@ -56,9 +75,9 @@ export function UserInfo() {
 
         <figure className="flex items-center gap-2.5 px-5 py-3.5">
           <Image
-            src={USER.img}
+            src={img}
             className="size-12"
-            alt={`Avatar for ${USER.name}`}
+            alt={`Avatar for ${name}`}
             role="presentation"
             width={200}
             height={200}
@@ -66,9 +85,9 @@ export function UserInfo() {
 
           <figcaption className="space-y-1 text-base font-medium">
             <div className="mb-2 leading-none text-dark dark:text-white">
-              {USER.name}
+              {name}
             </div>
-            <div className="leading-none text-gray-6">{USER.email}</div>
+            <div className="leading-none text-gray-6">{email}</div>
           </figcaption>
         </figure>
 

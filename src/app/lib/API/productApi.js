@@ -1,3 +1,5 @@
+import { getCookie } from "cookies-next/client";
+
 //functions - backend api implementation
 //get pdts with pagenation, get pdt by id , create pdt, update,delete
 //authorization lagana h
@@ -7,9 +9,14 @@
 
 const BASE_URL = process.env.NEXT_PUBLIC_PRODUCTS_BASE_URL;
 
-// ✅ Get all products
+// Get all products
 export const getAllProducts = async () => {
-  const res = await fetch(`${BASE_URL}`);
+  const token = getCookie("authToken");
+  const res = await fetch(`${BASE_URL}`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch products");
@@ -17,9 +24,14 @@ export const getAllProducts = async () => {
   return res.json();
 };
 
-// ✅ Get single product by ID
+// Get single product by ID
 export const getProductById = async (id) => {
-  const res = await fetch(`${BASE_URL}/${id}`);
+  const token = getCookie("authToken");
+  const res = await fetch(`${BASE_URL}/${id}`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch product");
@@ -27,9 +39,14 @@ export const getProductById = async (id) => {
   return res.json();
 };
 
-// ✅ Get variants for a product
+// Get variants for a product
 export const getProductVariants = async (id) => {
-  const res = await fetch(`${BASE_URL}/${id}/variants`);
+  const token = getCookie("authToken");
+  const res = await fetch(`${BASE_URL}/${id}/variants`, {
+    headers: {
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
+  });
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch variants");
@@ -37,17 +54,17 @@ export const getProductVariants = async (id) => {
   return res.json();
 };
 
-// ✅ Create new product (admin only)
-export const createProduct = async (productData, token) => {
+// Create new product (admin only)
+export const createProduct = async (productData) => {
+  const token = getCookie("authToken");
   const res = await fetch(`${BASE_URL}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`, // Pass token for auth
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     body: JSON.stringify(productData),
   });
-
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.message || "Failed to create product");
@@ -55,17 +72,17 @@ export const createProduct = async (productData, token) => {
   return data;
 };
 
-// ✅ Update product (admin only)
-export const updateProduct = async (id, updatedData, token) => {
+// Update product (admin only)
+export const updateProduct = async (id, updatedData) => {
+  const token = getCookie("authToken");
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     body: JSON.stringify(updatedData),
   });
-
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.message || "Failed to update product");
@@ -73,15 +90,15 @@ export const updateProduct = async (id, updatedData, token) => {
   return data;
 };
 
-// ✅ Delete product (admin only)
-export const deleteProduct = async (id, token) => {
+// Delete product (admin only)
+export const deleteProduct = async (id) => {
+  const token = getCookie("authToken");
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "DELETE",
     headers: {
-      Authorization: `Bearer ${token}`,
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
   });
-
   const data = await res.json();
   if (!res.ok) {
     throw new Error(data.message || "Failed to delete product");

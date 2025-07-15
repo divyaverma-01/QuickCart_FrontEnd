@@ -15,14 +15,11 @@ export default function OrderDetailPage() {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  //get token dynamically
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODZiOGViODQ5Yjg2ODBiMWJhMzRiNTMiLCJlbWFpbCI6ImFkbWluQGV4YW1wbGUuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzUyMDQ4MjAzLCJleHAiOjE3NTIxMzQ2MDN9.J0EuLAbhWTaDp_vdxPXy-rFSi6PeyMfJt_WsGVJ0iNo";
 
   useEffect(() => {
     async function fetchOrder() {
       try {
-        const data = await getOrderById(id, token);
+        const data = await getOrderById(id);
         setOrder(data);
         console.log("✅ Order Details fetched");
       } catch (err) {
@@ -46,7 +43,7 @@ export default function OrderDetailPage() {
 
   return (
     <div className="p-6">
-      <OrderDetails order={order} token={token} />
+      <OrderDetails order={order} />
     </div>
   );
 }

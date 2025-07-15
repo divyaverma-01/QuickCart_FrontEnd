@@ -6,11 +6,10 @@ export function MenuItem(props) {
 
   const getBaseClasses = (isActive, isLink) => {
     const base =
-      "rounded-lg px-3.5 font-medium text-dark-4 transition-all duration-200 dark:text-dark-6";
+      "rounded-lg px-3.5 font-medium text-gray-700 transition-all duration-200";
     const active =
-      "bg-[rgba(87,80,241,0.07)] text-primary hover:bg-[rgba(87,80,241,0.07)] dark:bg-[#FFFFFF1A] dark:text-white";
-    const inactive =
-      "hover:bg-blue hover:text-dark hover:dark:bg-[#FFFFFF1A] hover:dark:text-sky-700";
+      "bg-[rgba(87,80,241,0.07)] text-gray-900 font-semibold hover:bg-[rgba(87,80,241,0.07)]";
+    const inactive = "hover:bg-blue hover:text-gray-900";
 
     const linkPadding = "relative block py-2";
     const buttonPadding = "flex w-full items-center gap-3 py-3";

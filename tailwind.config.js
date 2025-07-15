@@ -6,7 +6,6 @@ const config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode: "class",
   theme: {
     fontFamily: {
       "euclid-circular-a": ["Euclid Circular A"],
@@ -26,13 +25,6 @@ const config = {
       body: "#6C6F93",
       meta: {
         DEFAULT: "#F7F9FC",
-        2: "#495270",
-        3: "#606882",
-        4: "#8D93A5",
-        5: "#BBBEC9",
-      },
-      dark: {
-        DEFAULT: "#1C274C",
         2: "#495270",
         3: "#606882",
         4: "#8D93A5",

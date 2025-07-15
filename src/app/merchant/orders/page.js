@@ -9,33 +9,21 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { token, authLoading, logout, isTokenExpired } =
-    useContext(AuthContext);
+  const { authLoading } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
     if (authLoading) return;
 
-    if (!token || (token && isTokenExpired(token))) {
-      logout();
-      return;
-    }
-
     fetchOrders();
-  }, [token, authLoading]);
+  }, [authLoading]);
 
   async function fetchOrders() {
     try {
       setLoading(true);
       setError("");
 
-      // Double-check expiry before API call
-      if (isTokenExpired(token)) {
-        logout();
-        return;
-      }
-
-      const data = await getAllOrders(token);
+      const data = await getAllOrders();
       setOrders(data);
     } catch (error) {
       handleApiError(error);
@@ -49,8 +37,7 @@ export default function OrdersPage() {
     console.error("API Error:", error);
 
     if (error.response?.status === 401) {
-      setError("Session expired. Please login again.");
-      logout();
+      setError("Session expired. Please login again."); 
     } else {
       setError("Failed to load orders. Please try again later.");
     }

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { updateOrderStatus, deleteOrder } from "@/app/lib/API/orderApi";
 
-export default function OrderDetails({ order, token }) {
+export default function OrderDetails({ order}) {
   const [status, setStatus] = useState(order.status);
   const router = useRouter(); // ← Import router
   const [updating, setUpdating] = useState(false);
@@ -12,7 +12,7 @@ export default function OrderDetails({ order, token }) {
   async function handleStatusChange(newStatus) {
     setUpdating(true);
     try {
-      const updatedOrder = await updateOrderStatus(order._id, newStatus, token);
+      const updatedOrder = await updateOrderStatus(order._id, newStatus);
       setStatus(updatedOrder.status);
       toast.success("Order status updated to " + updatedOrder.status);
     } catch (error) {
@@ -26,7 +26,7 @@ export default function OrderDetails({ order, token }) {
   async function handleDelete() {
     if (confirm("Are you sure you want to delete this order?")) {
       try {
-        await deleteOrder(order._id, token);
+        await deleteOrder(order._id);
         toast.success("Order deleted!");
         router.push("/merchant/orders"); // ← Redirect after successful deletion
       } catch (err) {

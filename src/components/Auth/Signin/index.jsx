@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import Breadcrumb from "@/components/Common/Breadcrumb";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginApi } from "@/app/lib/API/authApi"; // adjust path if needed
 import { useAuth } from "@/app/context/AuthContext";
 
 const Signin = () => {
@@ -18,15 +17,12 @@ const Signin = () => {
     e.preventDefault();
 
     try {
-      const data = await loginApi(email, password);
-
-      if (data.token) {
-        //Call logic function from AuthContext
-        login(data.token); //handles token storage and state management
+      const result = await login(email, password); // <-- just call login from context
+      if (result.success) {
         toast.success("Login successful");
-        router.push("/"); // redirect after login
+        router.push("/");
       } else {
-        throw new Error("No token received");
+        toast.error(result.message || "Login failed");
       }
     } catch (err) {
       toast.error(err.message || "Login failed");
