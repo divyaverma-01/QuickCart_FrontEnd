@@ -17,7 +17,7 @@ export function UserInfo() {
   const { user, authLoading } = useAuth();
 
   // Fallbacks
-  const fallbackImg = "/images/user/user-03.png";
+  const fallbackImg = "/images/user/fallback-user-img.png";
   const fallbackName = "User";
   const fallbackEmail = "user@example.com";
 

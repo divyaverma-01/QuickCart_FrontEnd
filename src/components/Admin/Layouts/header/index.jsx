@@ -13,11 +13,12 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 flex items-center justify-between border-b border-stroke bg-white px-4 py-5 shadow-1">
+      {/* Mobile menu button */}
       <button
         onClick={toggleSidebar}
-        className="rounded-lg border px-1.5 py-1 lg:hidden"
+        className="rounded-lg border border-gray-300 bg-gray-900 text-white px-1.5 py-1 lg:hidden hover:bg-gray-800"
       >
-        <MenuIcon />
+        <MenuIcon className="text-white" />
         <span className="sr-only">Toggle Sidebar</span>
       </button>
 

@@ -1,22 +1,10 @@
 import { getCookie } from "cookies-next/client";
 
-//functions - backend api implementation
-//get pdts with pagenation, get pdt by id , create pdt, update,delete
-//authorization lagana h
-
-//same for orders,transactions
-//customers list to merchant
-
 const BASE_URL = process.env.NEXT_PUBLIC_PRODUCTS_BASE_URL;
 
 // Get all products
 export const getAllProducts = async () => {
-  const token = getCookie("authToken");
-  const res = await fetch(`${BASE_URL}`, {
-    headers: {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  });
+  const res = await fetch(`${BASE_URL}`);
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch products");
@@ -26,12 +14,7 @@ export const getAllProducts = async () => {
 
 // Get single product by ID
 export const getProductById = async (id) => {
-  const token = getCookie("authToken");
-  const res = await fetch(`${BASE_URL}/${id}`, {
-    headers: {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  });
+  const res = await fetch(`${BASE_URL}/${id}`);
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch product");
@@ -41,12 +24,7 @@ export const getProductById = async (id) => {
 
 // Get variants for a product
 export const getProductVariants = async (id) => {
-  const token = getCookie("authToken");
-  const res = await fetch(`${BASE_URL}/${id}/variants`, {
-    headers: {
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-  });
+  const res = await fetch(`${BASE_URL}/${id}/variants`);
   if (!res.ok) {
     const data = await res.json();
     throw new Error(data.message || "Failed to fetch variants");
@@ -105,3 +83,48 @@ export const deleteProduct = async (id) => {
   }
   return data;
 };
+
+// // Get all products
+// export const getAllProducts = async () => {
+//   const token = getCookie("authToken");
+//   const res = await fetch(`${BASE_URL}`, {
+//     headers: {
+//       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+//     },
+//   });
+//   if (!res.ok) {
+//     const data = await res.json();
+//     throw new Error(data.message || "Failed to fetch products");
+//   }
+//   return res.json();
+// };
+
+// // Get single product by ID
+// export const getProductById = async (id) => {
+//   const token = getCookie("authToken");
+//   const res = await fetch(`${BASE_URL}/${id}`, {
+//     headers: {
+//       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+//     },
+//   });
+//   if (!res.ok) {
+//     const data = await res.json();
+//     throw new Error(data.message || "Failed to fetch product");
+//   }
+//   return res.json();
+// };
+
+// // Get variants for a product
+// export const getProductVariants = async (id) => {
+//   const token = getCookie("authToken");
+//   const res = await fetch(`${BASE_URL}/${id}/variants`, {
+//     headers: {
+//       ...(token ? { Authorization: `Bearer ${token}` } : {}),
+//     },
+//   });
+//   if (!res.ok) {
+//     const data = await res.json();
+//     throw new Error(data.message || "Failed to fetch variants");
+//   }
+//   return res.json();
+// };

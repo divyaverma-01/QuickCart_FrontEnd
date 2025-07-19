@@ -1,4 +1,4 @@
-import { fetchDashboardData } from "@/app/lib/api";
+import { fetchDashboardData } from "../../lib/API/dashboardApi";
 
 export default async function DashboardPage() {
   const {
@@ -22,11 +22,13 @@ export default async function DashboardPage() {
         </div>
         <div className="bg-white rounded-xl p-6 shadow-sm border">
           <h2 className="text-sm text-gray-500">Orders</h2>
-          <p className="text-xl font-semibold text-blue-600">{orders}</p>
+          <p className="text-xl font-semibold text-blue-600">{orders.total}</p>
         </div>
         <div className="bg-white rounded-xl p-6 shadow-sm border">
           <h2 className="text-sm text-gray-500">Products</h2>
-          <p className="text-xl font-semibold text-purple-600">{products}</p>
+          <p className="text-xl font-semibold text-purple-600">
+            {products.totalProducts}
+          </p>
         </div>
       </div>
 
@@ -51,8 +53,8 @@ export default async function DashboardPage() {
                 {recentOrders.map((order) => (
                   <tr key={order._id} className="hover:bg-gray-50">
                     <td className="px-4 py-2 border-b">{order._id}</td>
-                    <td className="px-4 py-2 border-b">{order.customerName}</td>
-                    <td className="px-4 py-2 border-b">₹{order.totalAmount}</td>
+                    <td className="px-4 py-2 border-b">{order.user._id}</td>
+                    <td className="px-4 py-2 border-b">₹{order.total}</td>
                     <td className="px-4 py-2 border-b capitalize text-blue-600">
                       {order.status}
                     </td>

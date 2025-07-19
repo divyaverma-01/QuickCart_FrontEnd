@@ -37,8 +37,10 @@ export default function OrdersPage() {
     console.error("API Error:", error);
 
     if (error.response?.status === 401) {
-      setError("Session expired. Please login again."); 
+      console.log("401 :", error);
+      setError("Session expired. Please login again.");
     } else {
+      console.log("error :", error);
       setError("Failed to load orders. Please try again later.");
     }
   }
@@ -69,7 +71,7 @@ export default function OrdersPage() {
       {loading ? (
         <p>Loading orders...</p>
       ) : orders.length === 0 ? (
-        <p>No orders found.</p>
+        <p>No orders yet.</p>
       ) : (
         <OrderList orders={orders} />
       )}

@@ -1,14 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getAllProducts } from "@/app/lib/API/productApi";
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("/api/products")
-      .then((res) => res.json())
-      .then(setProducts);
+    async function fetchProducts() {
+      try {
+        const data = await getAllProducts();
+        setProducts(data);
+      } catch (err) {
+        // Optionally handle error
+        console.error("Failed to fetch products:", err);
+      }
+    }
+    fetchProducts();
   }, []);
 
   return (

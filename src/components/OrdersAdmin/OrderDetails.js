@@ -3,11 +3,19 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { updateOrderStatus, deleteOrder } from "@/app/lib/API/orderApi";
+import { useAuth } from "@/app/context/AuthContext";
 
-export default function OrderDetails({ order}) {
+export default function OrderDetails({ order }) {
   const [status, setStatus] = useState(order.status);
   const router = useRouter(); // ← Import router
   const [updating, setUpdating] = useState(false);
+  const { user } = useAuth();
+  const merchantId = user?._id;
+
+  //filter out products that are not owned by the merchant
+  const merchantProducts = order.products.filter(
+    (item) => item.product.merchant === merchantId
+  );
 
   async function handleStatusChange(newStatus) {
     setUpdating(true);
@@ -84,7 +92,7 @@ export default function OrderDetails({ order}) {
       <div>
         <h3 className="font-semibold mb-2">Products:</h3>
         <ul className="space-y-4">
-          {order.products.map((item, idx) => {
+          {merchantProducts.map((item, idx) => {
             const product = item.product;
 
             if (!product) {

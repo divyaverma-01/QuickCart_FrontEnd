@@ -15,11 +15,11 @@ export default function OrderDetailPage() {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     async function fetchOrder() {
       try {
         const data = await getOrderById(id);
+        console.log("data", data);
         setOrder(data);
         console.log("✅ Order Details fetched");
       } catch (err) {
