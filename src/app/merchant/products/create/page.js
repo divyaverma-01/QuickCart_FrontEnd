@@ -14,3 +14,6 @@ export default function CreateProductPage() {
     </div>
   );
 }
+
+//delete variant option
+//delete image option

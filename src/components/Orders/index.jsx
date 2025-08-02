@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SingleOrder from "./SingleOrder";
+import { getUserOrders } from "../../app/lib/API/orderApi"; 
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -10,12 +11,8 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch("/api/orders"); //http://localhost:3001/api/orders ???
-        if (!response.ok) {
-          throw new Error("Failed to fetch orders");
-        }
-        const data = await response.json();
-        setOrders(data.orders || []);
+        const response = await getUserOrders();
+        setOrders(response.orders || []);
       } catch (err) {
         console.error("Error fetching orders:", err);
         setError(err.message);

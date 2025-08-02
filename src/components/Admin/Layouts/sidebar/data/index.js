@@ -11,6 +11,29 @@ export const NAV_DATA = [
         items: [],
       },
       {
+        title: "Onboarding",
+        icon: Icons.User,
+        url: "/merchant/onboarding",
+        items: [
+          {
+            title: "Registration",
+            url: "/merchant/account/register",
+          },
+          {
+            title: "KYC Submission",
+            url: "/merchant/account/kyc",
+          },
+          {
+            title: "Account Status",
+            url: "/merchant/account/status",
+          },
+          {
+            title: "Onboarding Dashboard",
+            url: "/merchant/onboarding",
+          },
+        ],
+      },
+      {
         title: "Orders",
         icon: Icons.Table,
         url: "/merchant/orders",
@@ -26,12 +49,6 @@ export const NAV_DATA = [
         title: "Transactions",
         icon: Icons.PieChart,
         url: "/merchant/transaction",
-        items: [],
-      },
-      {
-        title: "Profile",
-        icon: Icons.User,
-        url: "/merchant/account",
         items: [],
       },
       {

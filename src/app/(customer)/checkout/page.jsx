@@ -16,3 +16,5 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
+
+//Allow customers to pay for their orders using Razorpay.

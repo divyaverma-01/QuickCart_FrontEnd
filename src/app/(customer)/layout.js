@@ -13,6 +13,8 @@ import QuickViewModal from "@/components/Common/QuickViewModal";
 import CartSidebarModal from "@/components/Common/CartSidebarModal";
 import { PreviewSliderProvider } from "../context/PreviewSliderContext";
 import PreviewSliderModal from "@/components/Common/PreviewSlider";
+import { AuthProvider } from "../context/AuthContext";
+import { CartProvider } from "../context/CartContext";
 
 import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
@@ -30,19 +32,23 @@ export default function ConsumerLayout({ children }) {
         <PreLoader />
       ) : (
         <>
-          <ReduxProvider>
-            <CartModalProvider>
-              <ModalProvider>
-                <PreviewSliderProvider>
-                  <Header />
-                  {children}
-                  <QuickViewModal />
-                  <CartSidebarModal />
-                  <PreviewSliderModal />
-                </PreviewSliderProvider>
-              </ModalProvider>
-            </CartModalProvider>
-          </ReduxProvider>
+          <AuthProvider>
+            <ReduxProvider>
+              <CartProvider>
+                <CartModalProvider>
+                  <ModalProvider>
+                    <PreviewSliderProvider>
+                      <Header />
+                      {children}
+                      <QuickViewModal />
+                      <CartSidebarModal />
+                      <PreviewSliderModal />
+                    </PreviewSliderProvider>
+                  </ModalProvider>
+                </CartModalProvider>
+              </CartProvider>
+            </ReduxProvider>
+          </AuthProvider>
           <ScrollToTop />
           <Footer />
         </>

@@ -3,12 +3,15 @@
 import { SidebarProvider } from "@/components/Admin/Layouts/sidebar/sidebar-context";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider } from "../context/AuthContext";
+import { CartProvider } from "../context/CartContext";
 
 export function Providers({ children }) {
   return (
     <ThemeProvider defaultTheme="light" attribute="class">
       <AuthProvider>
-        <SidebarProvider>{children}</SidebarProvider>
+        <CartProvider>
+          <SidebarProvider>{children}</SidebarProvider>
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   );
