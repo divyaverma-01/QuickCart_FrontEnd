@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next";
 
-const API_BASE = process.env.NEXT_PUBLIC_EVENTS_BASE_URL;
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL + "/api/events";
 
 function getAuthHeaders() {
   const token = getCookie("authToken");

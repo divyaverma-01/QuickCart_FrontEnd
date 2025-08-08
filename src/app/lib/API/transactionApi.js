@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next/client";
 
-const BASE_URL = process.env.NEXT_PUBLIC_TRANSACTIONS_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api/transactions";
 
 // 1. Create a new transaction (requires user token)
 export const createTransaction = async (transactionData) => {

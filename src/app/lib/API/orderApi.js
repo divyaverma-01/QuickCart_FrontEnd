@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next/client";
 
-const BASE_URL = process.env.NEXT_PUBLIC_ORDERS_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api/orders";
 
 // 1. Create Order (Customer)
 export const createOrder = async (orderData) => {

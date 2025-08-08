@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next/client";
 
-const BASE_URL = process.env.NEXT_PUBLIC_PRODUCTS_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api/products";
 
 // Get all products
 export const getAllProducts = async () => {

@@ -3,12 +3,12 @@
 //log out
 
 // Use your backend API base URL
-const BACKEND_API =
+const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001";
 
 const loginApi = async (email, password) => {
   try {
-    const res = await fetch(`${BACKEND_API}/api/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,7 +27,7 @@ const loginApi = async (email, password) => {
 
 const signupApi = async (firstName, lastName, email, password, role) => {
   try {
-    const res = await fetch(`${BACKEND_API}/api/auth/signup`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const signupApi = async (firstName, lastName, email, password, role) => {
 // If your backend needs to invalidate tokens, keep this. Otherwise, you can remove it.
 const logoutApi = async (token) => {
   try {
-    const res = await fetch(`${BACKEND_API}/api/auth/logout`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

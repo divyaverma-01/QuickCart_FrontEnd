@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next/client";
 
-const BASE_URL = process.env.NEXT_PUBLIC_RAZORPAY_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL + "/api/razorpay";
 
 // 1. Create Razorpay Payment Order
 export const createPaymentOrder = async (options) => {
