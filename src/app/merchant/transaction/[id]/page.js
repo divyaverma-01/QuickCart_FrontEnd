@@ -1,4 +1,4 @@
-import TransactionDetail from "@/components/Transactions/TransactionDetail";
+import TransactionDetail from "@/components/Admin/Transactions/TransactionDetail";
 
 export default function TransactionDetailPage({ params }) {
   return (

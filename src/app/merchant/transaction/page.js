@@ -1,4 +1,4 @@
-import TransactionList from "@/components/Transactions/TransactionList";
+import TransactionList from "@/components/Admin/Transactions/TransactionList";
 
 export default function TransactionsPage() {
   return (
