@@ -6,6 +6,7 @@ const config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  css: ["./src/app/css/euclid-circular-a-font.css"],
   theme: {
     fontFamily: {
       "euclid-circular-a": ["Euclid Circular A"],

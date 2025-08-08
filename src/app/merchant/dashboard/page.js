@@ -1,12 +1,51 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { fetchDashboardData } from "../../lib/API/dashboardApi";
 
-export default async function DashboardPage() {
-  const {
-    totalSales,
-    orders,
-    products,
-    recentOrders = [],
-  } = await fetchDashboardData();
+export default function DashboardPage() {
+  const [dashboardData, setDashboardData] = useState({
+    totalSales: 0,
+    orders: { total: 0 },
+    products: { totalProducts: 0 },
+    recentOrders: [],
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        const data = await fetchDashboardData();
+        setDashboardData(data);
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, []);
+
+  const { totalSales, orders, products, recentOrders } = dashboardData;
+
+  if (loading) {
+    return (
+      <div className="bg-gray-50 min-h-screen p-6">
+        <div className="animate-pulse">
+          <div className="h-10 bg-gray-200 rounded w-1/3 mx-auto mb-8"></div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white rounded-xl p-6 shadow-sm border">
+                <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+                <div className="h-6 bg-gray-200 rounded w-1/3"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-50 min-h-screen p-6">
